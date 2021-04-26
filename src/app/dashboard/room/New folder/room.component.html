@@ -1,0 +1,67 @@
+<div id="room-selection-container" #roomSelectionContainer class="centered">
+  <h1>WebRTC video conference</h1>
+  <label>Enter the number of the room you want to connect</label>
+  <input id="room-input" type="text" #roominput />
+  <button id="connect-button" (click)="joinRoom(roominput.value)" #connectbutton>CONNECT</button>
+</div>
+<div class="main-content">
+  <div id="video-chat-container" #video_chat_container class="video-position" style="display: none;">
+     <div class="videos" id="videos">
+        <video id="local-video" #local_video autoplay [muted]="islocalmuted"></video>
+        <video id="remote-video" #remoteVideo autoplay></video>
+        <div class="btn-control" #btn_ctrl style="display: none;">
+           <button mat-fab [color]="islocalplay ? 'primary' : 'warn'" type="button" (click)="playStop()">
+           <mat-icon>{{islocalplay ? 'videocam' : 'videocam_off'}}</mat-icon>
+           </button>
+           <button mat-fab [color]="islocalmuted ? 'warn' : 'primary'" type="button" (click)="muteUnmute()">
+           <mat-icon>{{islocalmuted ? 'mic_off' : 'mic'}}</mat-icon>
+           </button>
+           <button mat-fab [color]="isScreenShared ? 'warn' : 'primary'" type="button" (click)="screenshare()">
+           <mat-icon>{{isScreenShared ? 'stop_screen_share' : 'screen_share'}}</mat-icon>
+           </button>
+           <button mat-fab [color]="isChatOn ? 'warn' : 'primary'" type="button" (click)="chat()">
+           <mat-icon>{{isChatOn ? 'chat' : 'speaker_notes_off'}}</mat-icon>
+           </button>
+           <button mat-fab color="warn" type="button" (click)="hangup()">
+              <mat-icon>call_end</mat-icon>
+           </button>
+           <!-- <button mat-fab color="warn" type="button" (click)="sendMessage()">
+              <mat-icon>send</mat-icon>
+              </button> -->
+        </div>
+     </div>
+  </div>
+  <div id="msg-container" style="display: none;">
+     <div class="chat-messages">
+        <div class="chat-messages-show-container">
+          <div class="welcome-chat">
+            <h1>TeemMeet</h1>
+            <p style="opacity: 0.8;">Chat On Room {{roomId}}</p>
+          </div>
+          
+           <ul class="chat-messages-show-list" id="message-list"> 
+           </ul>
+        </div>
+        <div class="chat-messages-create-container">
+           <input class="chat-messages-create-input" id="msgbox" tabindex="1" placeholder="Type a message.." [(ngModel)]="message" type="text">
+           <!-- <button class="chat-messages-create-button emoji" tabindex="0"
+           (click)="toggled = !toggled"
+           [(emojiPickerIf)]="toggled"
+           [emojiPickerDirection]="'bottom' || 'top' || 'left' || 'right'"
+           (emojiPickerSelect)="handleSelection($event)"
+           >
+           <mat-icon><span class="material-icons">
+              insert_emoticon
+              </span>
+           </mat-icon>
+           </button> -->
+           <button type="submit" tabindex="2" id="send" class="chat-messages-create-button" (click)="sendMessage(message)">
+              <mat-icon>send</mat-icon>
+           </button>
+        </div>
+     </div>
+  </div>
+</div>
+<audio id="callend-audio">
+  <source src="assets/call_end.mp3">
+</audio>

@@ -1,0 +1,71 @@
+<div class="main-content">
+   <div id="video-chat-container" #video_chat_container>
+
+      <div id="videos" class="videos">
+
+         <div id="localVideoContainer" class="videoContainer">
+            <video id="localVideo" autoplay muted></video>
+         </div>
+         <!-- Remote videos get appended here -->
+
+      </div>
+      <div class="btn-control" #btn_ctrl id="btn-control">
+         <button mat-fab [color]="islocalplay ? 'primary' : 'warn'" type="button" (click)="playStop()">
+            <mat-icon>{{islocalplay ? 'videocam' : 'videocam_off'}}</mat-icon>
+         </button>
+         <button mat-fab [color]="islocalmuted ? 'warn' : 'primary'" type="button" (click)="muteUnmute()">
+            <mat-icon>{{islocalmuted ? 'mic_off' : 'mic'}}</mat-icon>
+         </button>
+         <button  id="screen-share" mat-fab [color]="isScreenShared ? 'warn' : 'primary'"
+            type="button" (click)="screenshare()">
+            <mat-icon>{{isScreenShared ? 'stop_screen_share' : 'screen_share'}}</mat-icon>
+         </button>
+         <button mat-fab [color]="isChatOn ? 'primary' : 'warn'" type="button" (click)="chat()" [matBadge]="unreadmsgcount" [matBadgeHidden]="isChatOn || unreadmsgcount == 0" matBadgePosition="after" matBadgeColor="accent">
+            <mat-icon>{{isChatOn ? 'chat' : 'speaker_notes_off'}}</mat-icon>
+         </button>
+         <button mat-fab color="warn" type="button" (click)="hangup()">
+            <mat-icon>call_end</mat-icon>
+         </button>
+         <!-- <button mat-fab color="warn" type="button" (click)="sendMessage()">
+              <mat-icon>send</mat-icon>
+              </button> -->
+      </div>
+
+   </div>
+   <div id="msg-container" style="display: none;">
+      <div class="chat-messages">
+         <div class="welcome-chat">
+            <h1>TeemMeet</h1>
+            <p style="opacity: 0.8;">Chat On Room {{roomName}}</p>
+         </div>
+         <div class="chat-messages-show-container">
+
+            <ul class="chat-messages-show-list" id="message-list">
+            </ul>
+         </div>
+         <div class="chat-messages-create-container">
+            <input class="chat-messages-create-input" id="msgbox" tabindex="1" placeholder="Type a message.."
+               [(ngModel)]="message" type="text" (keyup)="handleKeyUp($event)">
+
+               <!-- <button class="chat-messages-create-button emoji" tabindex="0"
+               (click)="toggled = !toggled"
+               [(emojiPickerIf)]="toggled"
+               [emojiPickerDirection]="'bottom' || 'top' || 'left' || 'right'"
+               (emojiPickerSelect)="handleSelection($event)"
+               >
+               <mat-icon><span class="material-icons">
+                  insert_emoticon
+                  </span>
+               </mat-icon>
+               </button> -->
+
+            <button type="submit" tabindex="2" id="send" class="chat-messages-create-button" (click)="sendMessage(message)">
+              <mat-icon>send</mat-icon>
+           </button>
+         </div>
+      </div>
+   </div>
+</div>
+<audio id="callend-audio">
+   <source src="assets/call_end.mp3">
+</audio>

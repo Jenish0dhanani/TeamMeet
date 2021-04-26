@@ -1,0 +1,14 @@
+
+<h1>Thank-you for joining TeamMeet</h1>
+<h3>Enter otp sended to your email for validating your account</h3>
+
+<!-- Enter otp <input type="number" name="otpinput" id="otpinput" #otpinput> -->
+<mat-form-field class="example-full-width">
+    <mat-label>Enter OTP</mat-label>
+    <input type="text" matInput name="otpinput" placeholder="XXXXXX" maxlength="6" required style="letter-spacing: 22px;" #otpinput>
+</mat-form-field>
+<mat-error *ngIf="invaliderror">Invalid otp</mat-error>
+<br>
+<button mat-button type="submit" (click)="checkOtp(otpinput.value)">Verify</button>
+
+<button mat-button type="button" [disabled]="!button" (click)="resend()">{{counter}}</button>
